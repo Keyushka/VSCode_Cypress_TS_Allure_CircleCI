@@ -1,0 +1,7 @@
+{
+  "name": "Goal Name",
+  "due_date": 1568036964079,
+  "description": "Goal Description",
+  "multiple_owners": true,
+  "color": "#32a852"
+}

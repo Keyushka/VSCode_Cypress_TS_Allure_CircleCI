@@ -1,0 +1,13 @@
+# Dotenv
+.env
+
+# Node modules
+node_modules
+
+# Cypress
+cypress/videos/
+cypress/screenshots/
+
+# Allure
+allure-results/
+allure-report/

@@ -1,0 +1,43 @@
+version: 2.1
+
+jobs:
+  node-js-job:
+    docker:
+      - image: timbru31/java-node:latest
+    steps:
+      - checkout
+      - run:
+          name: Get access
+          command: chmod 777 /root
+      - run:
+          name: Update dependencies
+          command: apt update && apt upgrade -y
+      - run:
+          name: Install libs
+          command: apt-get install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb -y
+      - run:
+          name: Update cypress
+          command: npm install cypress --save-dev
+      - run:
+          name: Install Allure Commandline
+          command: npm install -g allure-commandline --save-dev
+      - run:
+          name: Give execution permissions to Allure
+          command: chmod +x $(which allure)
+      - run:
+          name: Install dependencies
+          command: npm i
+      - run:
+          name: Run Cypress tests
+          command: npm run cy || true
+      - run:
+          name: Generate Allure Report
+          command: npm run allure:report
+      - store_artifacts:
+          path: allure-report
+          destination: CypressReport
+
+workflows:
+  build-and-test:
+    jobs:
+      - node-js-job
