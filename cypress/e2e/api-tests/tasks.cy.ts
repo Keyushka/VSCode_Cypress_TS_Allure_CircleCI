@@ -20,7 +20,7 @@ describe('Check tasks functionality on clickup', () => {
         });
     });
 
-    it('Get Task', () => {
+    it.only('Get Task', () => {
         allure.severity('critical');
         createTask().then((createResponse) => {
             const task_id = createResponse.body.id

@@ -8,7 +8,9 @@
     "allure:clear": "rm -rf allure-results/ allure-report cypress/screenshots || true",
     "allure:report": "allure generate allure-results --clean -o allure-report",
     "allure:open": "allure open allure-report",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "gatling": "cd gatling && npm run gettask",
+    "test": "npm run cy && npm run gatling",
+    "posttest": "cd gatling && npm run move-reports"
   },
   "keywords": [],
   "author": "ikononenko",
@@ -21,6 +23,7 @@
     "allure-commandline": "^2.32.0",
     "allure-cypress": "^3.0.6",
     "cypress": "^13.15.1",
+    "dotenv-cli": "^7.4.2",
     "eslint": "^9.14.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-chai-friendly": "^1.0.1",

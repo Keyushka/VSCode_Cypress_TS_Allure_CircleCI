@@ -16,7 +16,7 @@ jobs:
           name: Install libs
           command: apt-get install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb -y
       - run:
-          name: Update cypress
+          name: Update Cypress
           command: npm install cypress --save-dev
       - run:
           name: Install Allure Commandline
@@ -25,17 +25,38 @@ jobs:
           name: Give execution permissions to Allure
           command: chmod +x $(which allure)
       - run:
-          name: Install dependencies
+          name: Install project dependencies
           command: npm i
+          
+      # Run Cypress tests
       - run:
           name: Run Cypress tests
           command: npm run cy || true
+          
+      # Generate Allure report for Cypress tests
       - run:
-          name: Generate Allure Report
+          name: Generate Allure Report for Cypress
           command: npm run allure:report
+          
+      # Run Gatling performance tests
+      - run:
+          name: Run Gatling Performance Tests
+          command: npm run gatling
+          
+      # Move Gatling reports to a specific folder for artifact storage
+      - run:
+          name: Move Gatling Reports
+          command: cd gatling && npm run move-reports
+          
+      # Store Allure report as an artifact
       - store_artifacts:
           path: allure-report
           destination: CypressReport
+          
+      # Store Gatling performance report as an artifact
+      - store_artifacts:
+          path: gatling-report
+          destination: GatlingReport
 
 workflows:
   build-and-test:

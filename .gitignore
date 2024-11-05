@@ -11,3 +11,8 @@ cypress/screenshots/
 # Allure
 allure-results/
 allure-report/
+
+# Gatling
+target/
+gatling-report/
+
