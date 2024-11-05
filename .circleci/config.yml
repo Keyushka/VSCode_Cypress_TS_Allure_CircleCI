@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   node-js-job:
     docker:
-      - image: timbru31/java-node:latest
+      - image: cimg/node:22.11.0-browsers
     steps:
       - checkout
       - run:
@@ -21,6 +21,9 @@ jobs:
       - run:
           name: Install Allure Commandline
           command: npm install -g allure-commandline --save-dev
+      - run:
+          name: Install Gatling CLI
+          command: npm install -g @gatling.io/cli
       - run:
           name: Give execution permissions to Allure
           command: chmod +x $(which allure)
