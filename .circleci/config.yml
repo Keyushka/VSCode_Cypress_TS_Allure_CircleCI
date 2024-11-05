@@ -36,6 +36,9 @@ jobs:
       - run:
           name: Install project dependencies
           command: npm i
+      - run:
+          name: Install Gatling dependencies
+          command: cd gatling && npm install
           
       # Run Cypress tests
       - run:
