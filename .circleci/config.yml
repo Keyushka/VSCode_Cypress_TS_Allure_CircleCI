@@ -3,15 +3,36 @@ version: 2.1
 jobs:
   node-js-job:
     docker:
-      - image: cimg/node:22.11.0-browsers
+      - image: timbru31/java-node:latest
     steps:
       - checkout
+      - run:
+          name: Update Node.js to v22
+          command: |
+            npm install -g n
+            n 22.11.0
+            node -v
+      - run:
+          name: Get access
+          command: chmod 777 /root
+      - run:
+          name: Update dependencies
+          command: apt update && apt upgrade -y
+      - run:
+          name: Install libs
+          command: apt-get install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb -y
+      - run:
+          name: Update Cypress
+          command: npm install cypress --save-dev
       - run:
           name: Install Allure Commandline
           command: npm install -g allure-commandline --save-dev
       - run:
           name: Install Gatling CLI
           command: npm install -g @gatling.io/cli
+      - run:
+          name: Give execution permissions to Allure
+          command: chmod +x $(which allure)
       - run:
           name: Install project dependencies
           command: npm i
