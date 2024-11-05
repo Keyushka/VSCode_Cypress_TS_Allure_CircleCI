@@ -7,9 +7,6 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Get access
-          command: chmod 777 /root
-      - run:
           name: Update dependencies
           command: apt update && apt upgrade -y
       - run:
